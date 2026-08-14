@@ -1,5 +1,12 @@
 {
     "files.associations": {
+        // ms-vscode.cpptools registers a CUDA-aware IntelliSense engine for
+        // the `cuda-cpp` language (it calls setLanguageConfiguration('cuda-cpp')
+        // and attaches hover/completion/semantic-token providers to it). Pinning
+        // .cu/.cuh to `cuda-cpp` (not plain `cpp`) is what engages that engine
+        // and the Nsight VSCode Edition extension (activates onLanguage:cuda-cpp).
+        "*.cu": "cuda-cpp",
+        "*.cuh": "cuda-cpp",
         "__bit_reference": "cpp",
         "__node_handle": "cpp",
         "bitset": "cpp",
@@ -13,5 +20,9 @@
         "cmath": "cpp",
         "sgemm_2d_registertiling": "cpp",
         "__locale": "cpp"
-    }
+    },
+    "C_Cpp.default.cStandard": "c11",
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
+    "C_Cpp.default.compilerPath": "/usr/bin/g++"
 }

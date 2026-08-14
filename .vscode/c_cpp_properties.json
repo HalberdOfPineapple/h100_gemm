@@ -1,0 +1,56 @@
+{
+    "configurations": [
+        {
+            "name": "H100 CUDA 13.0 (system)",
+            // Target the SYSTEM CUDA toolkit at /usr/local/cuda (13.0),
+            // which is what the Nsight VSCode Edition extension + PATH
+            // resolve to. NOTE: CMakeLists.txt builds the binary with the
+            // conda env nvcc (CUDA 12.4) instead; IntelliSense here is
+            // pinned to 13.0 by request. Headers mostly line up, but a
+            // few 12.4-vs-13.0 API differences may still squiggle.
+            "includePath": [
+                "${workspaceFolder}/src",
+                "${workspaceFolder}",
+                "/usr/local/cuda/include",
+                // CUDA 13 relocated the libcu++ headers under CCCL, so
+                // <cuda/barrier> and <cuda/std/...> only resolve via this dir.
+                "/usr/local/cuda/include/cccl",
+                "/usr/local/cuda/include/cooperative_groups",
+                "/usr/local/cuda/include/crt",
+                "/usr/local/cuda/include/nv"
+            ],
+            "defines": [
+                // nvcc predefines these; supplying them here keeps the CUDA
+                // IntelliSense engine consistent with the toolkit on the
+                // include path. __NVCC__ is required by CCCL's
+                // cuda_toolkit.h guard -- without it, <cuda/barrier> emits a
+                // hard #error ("CUDA compiler and CUDA toolkit headers are
+                // incompatible"). Versions are pinned to 13.0 to match the
+                // /usr/local/cuda (CUDART_VERSION=13000) headers above.
+                "__NVCC__",
+                "__CUDACC__",
+                "__CUDACC_VER_MAJOR__=13",
+                "__CUDACC_VER_MINOR__=0",
+                "__CUDACC_VER_BUILD__=0",
+                "__CUDA_ARCH__=900",
+                "__CUDA_ARCH_900__",
+                "__CUDA_API_PER_THREAD_DEFAULT_STREAM__"
+            ],
+            "compilerPath": "/usr/bin/g++",
+            "compilerArgs": [
+                "-std=c++17"
+            ],
+            "intelliSenseMode": "linux-gcc-x64",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/src",
+                    "/usr/local/cuda/include"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
+        }
+    ],
+    "version": 4
+}
